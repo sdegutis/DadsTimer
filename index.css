@@ -4,8 +4,9 @@
 }
 
 #timer {
-  height: 100%;
   width: 100%;
+  height: 100%;
+  position: fixed;
 }
 
 #timer svg {
@@ -27,6 +28,16 @@
   stroke: currentColor;
 }
 
-#timer.done {
-  color: red;
+#controls {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 1em;
+}
+
+#controls input {
+  width: 50%;
 }
