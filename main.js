@@ -1,14 +1,15 @@
 const electron = require('electron');
+const path = require('path');
 
 function createWindow() {
   let win = new electron.BrowserWindow({
-    width: 800,
+    width: 600,
     height: 600,
-    webPreferences: {
-      nodeIntegration: true
-    },
+    maximizable: false,
+    minimizable: false,
+    // resizable: false,
   });
-  win.setMenu(null);
+  // win.setMenu(null);
   win.loadFile('index.html');
 }
 

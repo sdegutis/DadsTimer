@@ -1,0 +1,32 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+#timer {
+  height: 100%;
+  width: 100%;
+}
+
+#timer svg {
+  transform: scaleX(-1);
+  fill: none;
+}
+
+#timer circle {
+  stroke-width: 7px;
+  stroke: grey;
+}
+
+#timer path {
+  stroke-width: 7px;
+  stroke-linecap: round;
+  transform: rotate(90deg);
+  transform-origin: center;
+  transition: 1s linear all;
+  stroke: currentColor;
+}
+
+#timer.done {
+  color: red;
+}
