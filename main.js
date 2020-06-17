@@ -9,7 +9,7 @@ function createWindow() {
     minWidth: 200,
   });
   win.setMenu(null);
-  win.webContents.toggleDevTools();
+  // win.webContents.toggleDevTools();
   win.loadFile('index.html');
 }
 

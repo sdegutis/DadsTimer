@@ -4,13 +4,18 @@
   "description": "",
   "main": "main.js",
   "scripts": {
+    "build": "electron-builder",
     "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "build": {
+    "productName": "Dad's Timer"
+  },
   "devDependencies": {
-    "electron": "^9.0.4"
+    "electron": "^9.0.4",
+    "electron-builder": "^22.7.0"
   }
 }
