@@ -72,15 +72,27 @@ function tick() {
 // }, 1000);
 
 
+function adjustControlSizes() {
+  const size = window.innerWidth / 10;
+  document.documentElement.style.fontSize = size + 'px';
+}
+
 let bounce = null;
-window.onresize = () => {
+function ensureAspectRatio() {
   if (bounce) clearTimeout(bounce);
   bounce = setTimeout(() => {
     bounce = null;
     const size = Math.max(window.innerWidth, window.innerHeight);
     resizeInnerTo(size, size);
   }, 100);
-};
+}
+
+window.addEventListener('resize', adjustControlSizes);
+window.addEventListener('resize', ensureAspectRatio);
+
+adjustControlSizes();
+ensureAspectRatio();
+
 
 /**
  * @param {number} width
