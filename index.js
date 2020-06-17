@@ -1,36 +1,34 @@
 const [button] = document.getElementsByTagName('button');
 const [input] = document.getElementsByTagName('input');
+const [span] = document.getElementsByTagName('span');
 const [path] = document.getElementsByTagName('path');
 
 resizeInnerTo(300, 300);
 
+input.value = '30s';
+
 let totalSeconds = 0;
-let remainingSeconds = totalSeconds;
+let remainingSeconds = 0;
 let running = false;
 let timer;
-let changed = true;
-
-input.onchange = () => {
-  changed = true;
-};
 
 button.onclick = () => {
   if (running) {
     pauseTimer();
   }
   else {
-    if (changed) {
-      const seconds = 10;
-      resetTimer(seconds);
-    }
+    maybeResetTimer();
     startTimer();
   }
 };
 
-resetTimer(30 * 60);
+maybeResetTimer();
 
-function resetTimer(seconds) {
-  totalSeconds = remainingSeconds = seconds;
+function maybeResetTimer() {
+  const newTime = parseTime(input.value);
+  if (newTime !== totalSeconds) {
+    totalSeconds = remainingSeconds = newTime;
+  }
 }
 
 function startTimer() {
@@ -39,6 +37,9 @@ function startTimer() {
   tick();
   timer = setInterval(tick, 100);
   button.innerText = 'Pause';
+
+  span.hidden = false;
+  input.hidden = true;
 }
 
 function pauseTimer() {
@@ -46,24 +47,34 @@ function pauseTimer() {
   clearInterval(timer);
   timer = null;
   button.innerText = 'Start';
+
+  span.hidden = true;
+  input.hidden = false;
 }
 
 function tick() {
   remainingSeconds -= 0.1;
 
+  const percentDone = (totalSeconds - remainingSeconds) / totalSeconds;
+  console.log(percentDone);
+  path.style.strokeDasharray = `${Math.round(percentDone * 283)} 283`;
+
+  let color = 'gold';
+  if (percentDone > 0.5) color = 'orange';
+  if (percentDone > 0.9) color = 'red';
+  path.style.color = color;
+
   if (remainingSeconds < 0) {
     pauseTimer();
-    resetTimer(30);
+    // maybeResetTimer();
   }
-  else {
-    const percentDone = (totalSeconds - remainingSeconds) / totalSeconds;
-    path.style.strokeDasharray = `${Math.round(percentDone * 283)} 283`;
+}
 
-    let color = 'gold';
-    if (percentDone > 0.5) color = 'orange';
-    if (percentDone > 0.9) color = 'red';
-    path.style.color = color;
-  }
+function parseTime(/** @type {string} */ time) {
+  const UNITS = { h: 60 * 60, m: 60, s: 1 };
+  return [...time.matchAll(/([0-9.]+)(h|m|s)/g)]
+    .map(([, amt, unit]) => parseFloat(amt) * UNITS[unit])
+    .reduce((a, b) => a + b)
 }
 
 // setTimeout(() => {
