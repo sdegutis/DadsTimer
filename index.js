@@ -56,18 +56,30 @@ function tick() {
   remainingSeconds -= 0.1;
 
   const percentDone = (totalSeconds - remainingSeconds) / totalSeconds;
-  console.log(percentDone);
-  path.style.strokeDasharray = `${Math.round(percentDone * 283)} 283`;
+  path.style.strokeDasharray = `${(percentDone * 283)} 283`;
 
   let color = 'gold';
   if (percentDone > 0.5) color = 'orange';
   if (percentDone > 0.9) color = 'red';
   path.style.color = color;
 
+  updateTimeDisplay();
+
   if (remainingSeconds < 0) {
     pauseTimer();
+    remainingSeconds = totalSeconds;
     // maybeResetTimer();
   }
+}
+
+function updateTimeDisplay() {
+  const min = Math.floor(remainingSeconds / 60);
+  const sec = remainingSeconds % 60;
+  span.innerText = `${twoDigits(min)}:${twoDigits(sec)}`;
+}
+
+function twoDigits(n) {
+  return n.toFixed(0).padStart(2, '0');
 }
 
 function parseTime(/** @type {string} */ time) {
@@ -84,7 +96,7 @@ function parseTime(/** @type {string} */ time) {
 
 
 function adjustControlSizes() {
-  const size = window.innerWidth / 10;
+  const size = window.innerWidth / 8;
   document.documentElement.style.fontSize = size + 'px';
 }
 

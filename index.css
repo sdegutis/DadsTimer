@@ -47,6 +47,10 @@ html {
   font: inherit;
 }
 
+#controls span {
+  font: inherit;
+}
+
 #controls button {
   font: inherit;
 }
