@@ -123,5 +123,5 @@ function resizeInnerTo(width, height) {
 }
 
 window.onbeforeunload = (e) => {
-  return running;
+  if (running) return false;
 };
