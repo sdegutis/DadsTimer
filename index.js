@@ -31,24 +31,25 @@ function maybeResetTimer() {
 }
 
 function startTimer() {
+  running = true;
+
   maybeResetTimer();
 
-  running = true;
-  changed = false;
   tick();
   timer = setInterval(tick, 100);
-  button.innerText = 'Pause';
 
+  button.innerText = 'Pause';
   span.hidden = false;
   input.hidden = true;
 }
 
 function pauseTimer() {
   running = false;
+
   clearInterval(timer);
   timer = null;
-  button.innerText = 'Start';
 
+  button.innerText = 'Start';
   span.hidden = true;
   input.hidden = false;
 }
@@ -120,3 +121,7 @@ function resizeInnerTo(width, height) {
   const diffY = window.outerHeight - window.innerHeight;
   window.resizeTo(width + diffX, height + diffY);
 }
+
+window.onbeforeunload = (e) => {
+  return running;
+};
