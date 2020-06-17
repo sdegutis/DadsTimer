@@ -59,17 +59,22 @@ function tick() {
   const percentDone = (totalSeconds - remainingSeconds) / totalSeconds;
   path.style.strokeDasharray = `${(percentDone * 283)} 283`;
 
-  let color = 'gold';
-  if (percentDone > 0.5) color = 'orange';
-  if (percentDone > 0.9) color = 'red';
-  path.style.color = color;
-
+  updateCircle(percentDone);
   updateTimeDisplay();
 
   if (remainingSeconds < 0) {
     pauseTimer();
     remainingSeconds = totalSeconds;
   }
+}
+
+function updateCircle(percentDone) {
+  let cls = 'good';
+  if (percentDone > 0.5) cls = 'half';
+  if (percentDone > 0.9) cls = 'warning';
+  if (percentDone >= 1) cls = 'done';
+  path.removeAttribute('class');
+  path.classList.add(cls);
 }
 
 function updateTimeDisplay() {

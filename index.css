@@ -22,7 +22,7 @@ html {
 
 #timer circle {
   stroke-width: 7px;
-  stroke: grey;
+  stroke: #222;
 }
 
 #timer path {
@@ -32,6 +32,41 @@ html {
   transform-origin: center;
   transition: 100ms linear all;
   stroke: currentColor;
+}
+
+#timer path.good {
+  color: gold;
+}
+
+#timer path.half {
+  color: orange;
+}
+
+#timer path.warning {
+  color: red;
+}
+
+#timer path.done {
+  color: green;
+  animation: blink 500ms ease-in-out infinite alternate, chameleon 4s ease-in-out infinite alternate;
+}
+
+@keyframes chameleon {
+  from {
+    color: red;
+  }
+  to {
+    color: green;
+  }
+}
+
+@keyframes blink {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 #controls {
