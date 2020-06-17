@@ -3,13 +3,14 @@ const path = require('path');
 
 function createWindow() {
   let win = new electron.BrowserWindow({
-    width: 600,
-    height: 600,
+    width: 300,
+    height: 300,
     maximizable: false,
     minimizable: false,
-    // resizable: false,
+    minWidth: 200,
   });
-  // win.setMenu(null);
+  win.setMenu(null);
+  win.webContents.toggleDevTools();
   win.loadFile('index.html');
 }
 

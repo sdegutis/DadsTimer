@@ -3,6 +3,10 @@
   margin: 0;
 }
 
+html {
+  font-size: 12px;
+}
+
 #timer {
   width: 100%;
   height: 100%;
@@ -24,7 +28,7 @@
   stroke-linecap: round;
   transform: rotate(90deg);
   transform-origin: center;
-  transition: 1s linear all;
+  transition: 100ms linear all;
   stroke: currentColor;
 }
 
@@ -40,4 +44,9 @@
 
 #controls input {
   width: 50%;
+  font: inherit;
+}
+
+#controls button {
+  font: inherit;
 }
