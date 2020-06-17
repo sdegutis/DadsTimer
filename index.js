@@ -12,17 +12,16 @@ let remainingSeconds = 0;
 let running = false;
 let timer;
 
+maybeResetTimer();
+
 button.onclick = () => {
   if (running) {
     pauseTimer();
   }
   else {
-    maybeResetTimer();
     startTimer();
   }
 };
-
-maybeResetTimer();
 
 function maybeResetTimer() {
   const newTime = parseTime(input.value);
@@ -32,6 +31,8 @@ function maybeResetTimer() {
 }
 
 function startTimer() {
+  maybeResetTimer();
+
   running = true;
   changed = false;
   tick();
@@ -68,7 +69,6 @@ function tick() {
   if (remainingSeconds < 0) {
     pauseTimer();
     remainingSeconds = totalSeconds;
-    // maybeResetTimer();
   }
 }
 
@@ -88,12 +88,6 @@ function parseTime(/** @type {string} */ time) {
     .map(([, amt, unit]) => parseFloat(amt) * UNITS[unit])
     .reduce((a, b) => a + b)
 }
-
-// setTimeout(() => {
-//   path.style.strokeDasharray = '70 283';
-//   path.style.color = 'red';
-// }, 1000);
-
 
 function adjustControlSizes() {
   const size = window.innerWidth / 8;
@@ -116,11 +110,6 @@ window.addEventListener('resize', ensureAspectRatio);
 adjustControlSizes();
 ensureAspectRatio();
 
-
-/**
- * @param {number} width
- * @param {number} height
- */
 function resizeInnerTo(width, height) {
   const diffX = window.outerWidth - window.innerWidth;
   const diffY = window.outerHeight - window.innerHeight;
