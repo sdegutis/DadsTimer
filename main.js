@@ -4,12 +4,13 @@ function createWindow() {
   let win = new electron.BrowserWindow({
     width: 300,
     height: 300,
-    maximizable: false,
-    minimizable: false,
     minWidth: 200,
     minHeight: 200,
-    backgroundColor: '#000',
+    maximizable: false,
+    minimizable: false,
+    resizable: false,
     alwaysOnTop: true,
+    backgroundColor: '#000',
     frame: false,
   });
   win.setMenu(null);
