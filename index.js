@@ -4,7 +4,8 @@ const [span] = document.getElementsByTagName('span');
 const [path] = document.getElementsByTagName('path');
 const controlsEl = document.querySelector('#controls');
 
-resizeInnerTo(300, 300);
+window.resizeTo(300, 300);
+adjustControlSizes();
 
 input.value = '30s';
 
@@ -127,24 +128,11 @@ function adjustControlSizes() {
   document.documentElement.style.fontSize = size + 'px';
 }
 
-let bounce = null;
-function ensureAspectRatio() {
-  if (bounce) clearTimeout(bounce);
-  bounce = setTimeout(() => {
-    bounce = null;
-    const size = Math.max(window.innerWidth, window.innerHeight);
-    resizeInnerTo(size, size);
-  }, 100);
-}
+document.onmousewheel = (e) => {
+  const by = (e.deltaY > 0 ? -1 : 1) * 10;
+  if (by < 0 && window.innerWidth < 201) return;
 
-window.addEventListener('resize', adjustControlSizes);
-window.addEventListener('resize', ensureAspectRatio);
-
-adjustControlSizes();
-ensureAspectRatio();
-
-function resizeInnerTo(width, height) {
-  const diffX = window.outerWidth - window.innerWidth;
-  const diffY = window.outerHeight - window.innerHeight;
-  window.resizeTo(width + diffX, height + diffY);
-}
+  window.resizeBy(by, by);
+  window.moveBy(-by / 2, -by / 2);
+  adjustControlSizes();
+};

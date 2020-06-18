@@ -7,6 +7,7 @@ function createWindow() {
     maximizable: false,
     minimizable: false,
     minWidth: 200,
+    minHeight: 200,
     alwaysOnTop: true,
     frame: false,
   });
