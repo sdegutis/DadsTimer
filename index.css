@@ -93,7 +93,7 @@ html {
   border-color: #0066ff;
 }
 
-#controls button {
+#toggleButton {
   font: inherit;
   font-size: 75%;
   outline: none;
@@ -106,6 +106,26 @@ html {
   color: white;
 }
 
-#controls button:active {
+#toggleButton:active {
   border-bottom: none;
+}
+
+#closeButton {
+  position: fixed;
+  top: 0;
+  right: 0;
+  outline: none;
+  border: none;
+  padding: 0.75em;
+  line-height: 1;
+  background: #000;
+  color: #fff;
+}
+
+#closeButton:disabled:hover {
+  background: #234;
+}
+
+#closeButton:hover {
+  background: #0066ff;
 }

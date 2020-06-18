@@ -1,4 +1,4 @@
-const [button] = document.getElementsByTagName('button');
+const [button, closeButton] = document.getElementsByTagName('button');
 const [input] = document.getElementsByTagName('input');
 const [span] = document.getElementsByTagName('span');
 const [path] = document.getElementsByTagName('path');
@@ -25,6 +25,8 @@ document.onmousedown = (e) => {
     window.moveBy(e.movementX, e.movementY);
   };
 };
+
+closeButton.onclick = () => window.close();
 
 document.onmouseup = (e) => {
   e.preventDefault();
@@ -56,7 +58,9 @@ function maybeResetTimer() {
 
 function startTimer() {
   running = true;
+
   window.onbeforeunload = () => true;
+  closeButton.disabled = true;
 
   maybeResetTimer();
 
@@ -70,7 +74,9 @@ function startTimer() {
 
 function pauseTimer() {
   running = false;
+
   window.onbeforeunload = null;
+  closeButton.disabled = false;
 
   clearInterval(timer);
   timer = null;
