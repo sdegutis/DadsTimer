@@ -3,6 +3,7 @@ const [input] = document.getElementsByTagName('input');
 const [span] = document.getElementsByTagName('span');
 const [path] = document.getElementsByTagName('path');
 const controlsEl = document.querySelector('#controls');
+const timerEl = document.querySelector('#timer');
 
 window.resizeTo(300, 300);
 adjustControlSizes();
@@ -106,10 +107,8 @@ function updateCircle(percentDone) {
   if (percentDone > 0.5) cls = 'half';
   if (percentDone > 0.9) cls = 'warning';
   if (percentDone >= 1) cls = 'done';
-  path.removeAttribute('class');
-  path.classList.add(cls);
-
-  document.documentElement.classList.toggle('done', percentDone >= 1);
+  timerEl.removeAttribute('class');
+  timerEl.classList.add(cls);
 }
 
 function updateTimeDisplay() {
