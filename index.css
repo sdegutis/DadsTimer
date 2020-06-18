@@ -22,7 +22,7 @@ html {
 
 #timer circle {
   stroke-width: 7px;
-  stroke: #222;
+  stroke: #111;
 }
 
 #timer path {
@@ -47,8 +47,7 @@ html {
 }
 
 #timer path.done {
-  color: green;
-  animation: blink 500ms ease-in-out infinite alternate, chameleon 4s ease-in-out infinite alternate;
+  animation: blink 500ms ease-in-out infinite alternate, chameleon 3s ease-in-out infinite alternate;
 }
 
 @keyframes chameleon {

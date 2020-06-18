@@ -23,6 +23,13 @@ button.onclick = () => {
   }
 };
 
+input.onkeydown = (e) => {
+  if (e.keyCode === 13) {
+    e.preventDefault();
+    startTimer();
+  }
+};
+
 function maybeResetTimer() {
   const newTime = parseTime(input.value);
   if (newTime !== totalSeconds) {
@@ -76,6 +83,8 @@ function updateCircle(percentDone) {
   if (percentDone >= 1) cls = 'done';
   path.removeAttribute('class');
   path.classList.add(cls);
+
+  document.documentElement.classList.toggle('done', percentDone >= 1);
 }
 
 function updateTimeDisplay() {

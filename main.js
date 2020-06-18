@@ -7,6 +7,7 @@ function createWindow() {
     maximizable: false,
     minimizable: false,
     minWidth: 200,
+    alwaysOnTop: true,
   });
   win.setMenu(null);
   // win.webContents.toggleDevTools();
