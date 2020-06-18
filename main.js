@@ -8,6 +8,7 @@ function createWindow() {
     minimizable: false,
     minWidth: 200,
     minHeight: 200,
+    backgroundColor: '#000',
     alwaysOnTop: true,
     frame: false,
   });
