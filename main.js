@@ -14,7 +14,7 @@ function createWindow() {
     frame: false,
   });
   win.setMenu(null);
-  win.webContents.toggleDevTools();
+  // win.webContents.toggleDevTools();
   win.loadFile('index.html');
 }
 
