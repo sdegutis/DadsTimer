@@ -2,6 +2,7 @@ const [button] = document.getElementsByTagName('button');
 const [input] = document.getElementsByTagName('input');
 const [span] = document.getElementsByTagName('span');
 const [path] = document.getElementsByTagName('path');
+const controlsEl = document.querySelector('#controls');
 
 resizeInnerTo(300, 300);
 
@@ -13,6 +14,21 @@ let running = false;
 let timer;
 
 maybeResetTimer();
+
+document.onmousedown = (e) => {
+  if (e.target !== controlsEl) return;
+
+  e.preventDefault();
+  document.onmousemove = (e) => {
+    e.preventDefault();
+    window.moveBy(e.movementX, e.movementY);
+  };
+};
+
+document.onmouseup = (e) => {
+  e.preventDefault();
+  document.onmousemove = null;
+};
 
 button.onclick = () => {
   if (running) {
@@ -39,6 +55,7 @@ function maybeResetTimer() {
 
 function startTimer() {
   running = true;
+  window.onbeforeunload = () => true;
 
   maybeResetTimer();
 
@@ -52,6 +69,7 @@ function startTimer() {
 
 function pauseTimer() {
   running = false;
+  window.onbeforeunload = null;
 
   clearInterval(timer);
   timer = null;
@@ -130,7 +148,3 @@ function resizeInnerTo(width, height) {
   const diffY = window.outerHeight - window.innerHeight;
   window.resizeTo(width + diffX, height + diffY);
 }
-
-window.onbeforeunload = (e) => {
-  if (running) return false;
-};

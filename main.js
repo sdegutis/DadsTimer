@@ -8,9 +8,10 @@ function createWindow() {
     minimizable: false,
     minWidth: 200,
     alwaysOnTop: true,
+    frame: false,
   });
   win.setMenu(null);
-  // win.webContents.toggleDevTools();
+  win.webContents.toggleDevTools();
   win.loadFile('index.html');
 }
 
