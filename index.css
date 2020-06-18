@@ -97,11 +97,16 @@ html {
   text-align: center;
 }
 
+#controls span {
+  user-select: none;
+}
+
 #controls input {
   border-color: #0066ff;
 }
 
 #toggleButton {
+  user-select: none;
   font: inherit;
   font-size: 75%;
   outline: none;
@@ -119,6 +124,7 @@ html {
 }
 
 #closeButton {
+  user-select: none;
   position: fixed;
   top: 3px;
   right: 3px;
