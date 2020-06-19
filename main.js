@@ -12,10 +12,14 @@ function createWindow() {
     alwaysOnTop: true,
     backgroundColor: '#000',
     frame: false,
+    show: false,
   });
   win.setMenu(null);
   // win.webContents.toggleDevTools();
   win.loadFile('index.html');
+  win.once('ready-to-show', () => {
+    win.show();
+  });
 }
 
 electron.app.whenReady().then(createWindow);
