@@ -86,9 +86,8 @@ html {
   gap: 0.5em;
 }
 
-#controls input,
+input,
 #controls span {
-  width: 50%;
   font: inherit;
   border: 1px solid transparent;
   outline: none;
@@ -101,11 +100,12 @@ html {
   user-select: none;
 }
 
-#controls input {
+input {
   border-color: #0066ff;
+  width: 6em;
 }
 
-#toggleButton {
+.button {
   user-select: none;
   font: inherit;
   font-size: 75%;
@@ -119,7 +119,7 @@ html {
   color: white;
 }
 
-#toggleButton:active {
+.button:active {
   border-bottom: none;
 }
 
@@ -146,4 +146,34 @@ html {
 
 #closeButton:active {
   background: #004cbd;
+}
+
+.buttons {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 0.25em;
+  align-items: end;
+}
+
+.reset.button {
+  background: #a92d2d;
+  border-color: #730101;
+}
+
+#resetBox {
+  position: fixed;
+  background: #000a;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+#resetBox > div {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  align-content: center;
+  gap: 0.5em;
+  justify-content: center;
 }

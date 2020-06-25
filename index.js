@@ -1,9 +1,10 @@
-const [button, closeButton] = document.getElementsByTagName('button');
+const [toggleButton, resetButton, setButton, cancelButton, closeButton] = document.getElementsByTagName('button');
 const [input] = document.getElementsByTagName('input');
 const [span] = document.getElementsByTagName('span');
 const [path] = document.getElementsByTagName('path');
 const controlsEl = document.querySelector('#controls');
 const timerEl = document.querySelector('#timer');
+const resetBox = /** @type {HTMLDivElement} */(document.querySelector('#resetBox'));
 
 window.resizeTo(300, 300);
 adjustControlSizes();
@@ -15,7 +16,8 @@ let remainingSeconds = 0;
 let running = false;
 let timer;
 
-maybeResetTimer();
+resetTimer();
+updateTimeDisplay();
 
 document.onmousedown = (e) => {
   if (e.target !== controlsEl) return;
@@ -34,7 +36,23 @@ document.onmouseup = (e) => {
   document.onmousemove = null;
 };
 
-button.onclick = () => {
+resetButton.onclick = () => {
+  resetBox.hidden = false;
+  input.focus();
+};
+
+cancelButton.onclick = () => {
+  resetBox.hidden = true;
+};
+
+setButton.onclick = () => {
+  resetTimer();
+  updateTimeDisplay();
+  updateCircle();
+  resetBox.hidden = true;
+};
+
+toggleButton.onclick = () => {
   if (running) {
     pauseTimer();
   }
@@ -46,15 +64,17 @@ button.onclick = () => {
 input.onkeydown = (e) => {
   if (e.keyCode === 13) {
     e.preventDefault();
-    startTimer();
+    setButton.click();
+  }
+  else if (e.keyCode === 27) {
+    e.preventDefault();
+    cancelButton.click();
   }
 };
 
-function maybeResetTimer() {
+function resetTimer() {
   const newTime = parseTime(input.value);
-  if (newTime !== totalSeconds) {
-    totalSeconds = remainingSeconds = newTime;
-  }
+  totalSeconds = remainingSeconds = newTime;
 }
 
 function startTimer() {
@@ -63,18 +83,17 @@ function startTimer() {
   window.onbeforeunload = () => true;
   closeButton.disabled = true;
 
-  maybeResetTimer();
-
   tick();
   timer = setInterval(tick, 100);
 
-  button.innerText = 'Pause';
-  span.hidden = false;
+  toggleButton.innerText = 'Pause';
+  resetButton.hidden = true;
   input.hidden = true;
 }
 
 function pauseTimer() {
   running = false;
+  updateTimeDisplay();
 
   window.onbeforeunload = null;
   closeButton.disabled = false;
@@ -82,27 +101,28 @@ function pauseTimer() {
   clearInterval(timer);
   timer = null;
 
-  button.innerText = 'Start';
-  span.hidden = true;
+  toggleButton.innerText = 'Start';
+  resetButton.hidden = false;
   input.hidden = false;
 }
 
 function tick() {
   remainingSeconds -= 0.1;
 
-  const percentDone = (totalSeconds - remainingSeconds) / totalSeconds;
-  path.style.strokeDasharray = `${(percentDone * 283)} 283`;
-
-  updateCircle(percentDone);
+  updateCircle();
   updateTimeDisplay();
 
   if (remainingSeconds < 0) {
+    remainingSeconds = 0;
     pauseTimer();
     remainingSeconds = totalSeconds;
   }
 }
 
-function updateCircle(percentDone) {
+function updateCircle() {
+  const percentDone = (totalSeconds - remainingSeconds) / totalSeconds;
+  path.style.strokeDasharray = `${(percentDone * 283)} 283`;
+
   let cls = 'good';
   if (percentDone > 0.5) cls = 'half';
   if (percentDone > 0.9) cls = 'warning';
@@ -111,10 +131,16 @@ function updateCircle(percentDone) {
   timerEl.classList.add(cls);
 }
 
+function timeStringFor(seconds) {
+  const min = Math.floor(seconds / 60);
+  const sec = Math.floor(seconds) % 60;
+  return `${twoDigits(min)}:${twoDigits(sec)}`;
+}
+
 function updateTimeDisplay() {
-  const min = Math.floor(remainingSeconds / 60);
-  const sec = remainingSeconds % 60;
-  span.innerText = `${twoDigits(min)}:${twoDigits(sec)}`;
+  let text = timeStringFor(remainingSeconds);
+  if (!running) text += ' / ' + timeStringFor(totalSeconds);
+  span.innerText = text;
 }
 
 function twoDigits(n) {
