@@ -83,7 +83,7 @@ html {
   display: grid;
   align-content: center;
   justify-items: center;
-  gap: 1em;
+  gap: 0.5em;
 }
 
 #controls input,
