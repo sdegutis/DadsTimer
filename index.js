@@ -2,7 +2,7 @@ const [toggleButton, resetButton, setButton, cancelButton, closeButton] = docume
 const [input] = document.getElementsByTagName('input');
 const [span] = document.getElementsByTagName('span');
 const [path] = document.getElementsByTagName('path');
-const controlsEl = document.querySelector('#controls');
+const controlBox = document.querySelector('#controls');
 const timerEl = document.querySelector('#timer');
 const resetBox = /** @type {HTMLDivElement} */(document.querySelector('#resetBox'));
 
@@ -20,7 +20,7 @@ resetTimer();
 updateTimeDisplay();
 
 document.onmousedown = (e) => {
-  if (e.target !== controlsEl) return;
+  if (!e.target.classList.contains('fullscreen-container')) return;
 
   e.preventDefault();
   document.onmousemove = (e) => {
@@ -29,19 +29,21 @@ document.onmousedown = (e) => {
   };
 };
 
-closeButton.onclick = () => window.close();
-
 document.onmouseup = (e) => {
   e.preventDefault();
   document.onmousemove = null;
 };
 
+closeButton.onclick = () => window.close();
+
 resetButton.onclick = () => {
+  controlBox.hidden = true;
   resetBox.hidden = false;
   input.focus();
 };
 
 cancelButton.onclick = () => {
+  controlBox.hidden = false;
   resetBox.hidden = true;
 };
 
@@ -49,6 +51,7 @@ setButton.onclick = () => {
   resetTimer();
   updateTimeDisplay();
   updateCircle();
+  controlBox.hidden = false;
   resetBox.hidden = true;
 };
 
