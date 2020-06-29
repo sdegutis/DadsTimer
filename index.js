@@ -123,13 +123,15 @@ function tick() {
 }
 
 function updateCircle() {
-  const percentDone = (totalSeconds - remainingSeconds) / totalSeconds;
-  path.style.strokeDasharray = `${(percentDone * 283)} 283`;
+  const percentDone = remainingSeconds / totalSeconds;
+
+  const percentShow = percentDone <= 0 ? 1 : percentDone;
+  path.style.strokeDasharray = `${(percentShow * 283)} 283`;
 
   let cls = 'good';
-  if (percentDone > 0.5) cls = 'half';
-  if (percentDone > 0.9) cls = 'warning';
-  if (percentDone >= 1) cls = 'done';
+  if (percentDone < 0.5) cls = 'half';
+  if (percentDone < 0.1) cls = 'warning';
+  if (percentDone <= 0) cls = 'done';
   timerEl.removeAttribute('class');
   timerEl.classList.add(cls);
 }
