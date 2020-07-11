@@ -101,10 +101,11 @@ input {
 .button {
   user-select: none;
   font: inherit;
-  font-size: 75%;
+  font-size: 50%;
+  text-transform: uppercase;
   outline: none;
   border: none;
-  padding: 3px 12px;
+  padding: 6px 12px;
   background: #0066ff;
   border-bottom: 4px solid #004cbd;
   border-radius: 8px;
