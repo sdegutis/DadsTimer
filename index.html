@@ -17,7 +17,7 @@
   <div class="fullscreen" id="controls">
     <div class="fullscreen-container">
       <span></span>
-      <div class="buttons">
+      <div class="buttons non-draggable">
         <button class="button">Start</button>
         <button class="reset button">Reset</button>
       </div>
@@ -25,14 +25,14 @@
   </div>
   <div class="fullscreen" id="resetBox" hidden>
     <div class="fullscreen-container">
-      <input spellcheck="false" type="text">
-      <div class="buttons">
+      <input class="non-draggable" spellcheck="false" type="text">
+      <div class="buttons non-draggable">
         <button class="button">Set</button>
         <button class="reset button">Cancel</button>
       </div>
     </div>
   </div>
-  <button id="closeButton">&#x2715;</button>
+  <button class="non-draggable" id="closeButton">&#x2715;</button>
   <script src="index.js"></script>
 </body>
 

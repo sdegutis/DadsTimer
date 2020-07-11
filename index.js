@@ -20,7 +20,7 @@ resetTimer();
 updateTimeDisplay();
 
 document.onmousedown = (e) => {
-  if (e.target.closest('.buttons') || e.target.tagName === 'INPUT') return;
+  if (e.target.closest('.non-draggable')) return;
 
   e.preventDefault();
   document.onmousemove = (e) => {
