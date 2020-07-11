@@ -115,6 +115,7 @@ input {
 
 .button:active {
   border-bottom: none;
+  border-top: 4px solid #000 !important;
 }
 
 #closeButton {
