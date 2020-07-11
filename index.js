@@ -20,7 +20,7 @@ resetTimer();
 updateTimeDisplay();
 
 document.onmousedown = (e) => {
-  if (!e.target.classList.contains('fullscreen-container')) return;
+  if (e.target.closest('.buttons') || e.target.tagName === 'INPUT') return;
 
   e.preventDefault();
   document.onmousemove = (e) => {
