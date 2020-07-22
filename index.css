@@ -38,11 +38,11 @@ html {
 }
 
 #timer.good {
-  color: gold;
+  color: green;
 }
 
 #timer.half {
-  color: orange;
+  color: goldenrod;
 }
 
 #timer.warning {
