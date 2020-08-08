@@ -115,11 +115,11 @@ function tick() {
   updateCircle();
   updateTimeDisplay();
 
-  if (remainingSeconds < 0) {
-    remainingSeconds = 0;
-    pauseTimer();
-    remainingSeconds = totalSeconds;
-  }
+  // if (remainingSeconds < 0) {
+  //   remainingSeconds = 0;
+  //   pauseTimer();
+  //   remainingSeconds = totalSeconds;
+  // }
 }
 
 function updateCircle() {
@@ -137,9 +137,10 @@ function updateCircle() {
 }
 
 function timeStringFor(seconds) {
-  const min = Math.floor(seconds / 60);
-  const sec = Math.floor(seconds) % 60;
-  return `${twoDigits(min)}:${twoDigits(sec)}`;
+  const neg = seconds < 0 ? '-' : '';
+  const min = Math.floor(Math.abs(seconds) / 60);
+  const sec = Math.floor(Math.abs(seconds)) % 60;
+  return `${neg}${twoDigits(min)}:${twoDigits(sec)}`;
 }
 
 function updateTimeDisplay() {
